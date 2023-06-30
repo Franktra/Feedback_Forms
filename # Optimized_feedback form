@@ -1,0 +1,82 @@
+# Optimized version of the script that enhances functionality and ease of use for the feedback form
+import csv
+from transformers import pipeline
+from getpass import getpass
+
+sentiment_analyzer = pipeline("sentiment-analysis")
+
+def get_sentiment(text):
+    result = sentiment_analyzer(text)
+    return result[0]['label']
+
+def prompt_feedback_form(feedback_type):
+    questions = [
+        {
+            "question": "Rate the performance (1-5):",
+            "field": "performance_rating"
+        },
+        {
+            "question": "Please provide some feedback on the performance:",
+            "field": "performance_feedback"
+        },
+        {
+            "question": "Rate the knowledge and expertise (1-5):",
+            "field": "knowledge_rating"
+        },
+        {
+            "question": "Please provide some feedback on the knowledge and expertise:",
+            "field": "knowledge_feedback"
+        },
+        {
+            "question": "Rate the delivery and results (1-5):",
+            "field": "delivery_rating"
+        },
+        {
+            "question": "Please provide some feedback on the delivery and results:",
+            "field": "delivery_feedback"
+        },
+        {
+            "question": "Rate the overall impact and satisfaction (1-5):",
+            "field": "impact_rating"
+        },
+        {
+            "question": "Please provide some feedback on the overall impact and satisfaction:",
+            "field": "impact_feedback"
+        },
+        {
+            "question": "Any additional comments or suggestions:",
+            "field": "additional_comments"
+        }
+    ]
+
+    answers = {}
+
+    print(f"\n{feedback_type} Feedback Form\n")
+    for question in questions:
+        answer = getpass(f"{question['question']} ")
+        if "Please provide" in question['question']:
+            sentiment = get_sentiment(answer)
+            answers[question['field']] = answer
+            answers[question['field'] + "_sentiment"] = sentiment
+        else:
+            answers[question['field']] = answer
+
+    return answers
+
+def save_feedback_data(data):
+    fieldnames = ["performance_rating", "performance_feedback", "knowledge_rating", "knowledge_feedback", "delivery_rating", "delivery_feedback", "impact_rating", "impact_feedback", "additional_comments", "performance_feedback_sentiment", "knowledge_feedback_sentiment", "delivery_feedback_sentiment", "impact_feedback_sentiment"]
+    with open('feedback_data.csv', 'a', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer.writerow(data)
+
+# Main script
+feedback_type = input("Which feedback form do you want to fill? (Prompt Engineering or Speech-Language Therapy) ")
+if feedback_type.lower() == "prompt engineering":
+    feedback_data = prompt_feedback_form("Prompt Engineering")
+elif feedback_type.lower() == "speech-language therapy":
+    feedback_data = prompt_feedback_form("Speech-Language Therapy")
+else:
+    print("Invalid feedback type. Please choose 'Prompt Engineering' or 'Speech-Language Therapy'.")
+
+save_feedback_data(feedback_data)
+print("Thank you for providing feedback!")
