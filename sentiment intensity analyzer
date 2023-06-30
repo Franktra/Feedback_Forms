@@ -1,0 +1,100 @@
+```This code introduces the use of the NLTK library's sentiment intensity analyzer, VADER, to provide sentiment analysis of user feedback. This sentiment score is stored alongside the feedback itself in the CSV file. We also added error handling for invalid feedback type inputs, ensuring the program ends gracefully in such scenarios.
+
+```
+
+# Initialize sentiment analyzer
+sid = SentimentIntensityAnalyzer()
+
+def ask_question(question):
+    answer = input(f"{question} ")
+
+    # Perform sentiment analysis on the answer
+    sentiment_scores = sid.polarity_scores(answer)
+    sentiment = sentiment_scores['compound']
+
+    return answer, sentiment
+
+def prompt_engineering_feedback():
+    questions = [
+        "Prompt Engineering Instructor Performance:",
+        "Knowledge and Performance (a):",
+        "Knowledge and Performance (b):",
+        "Delivery and Results (a):",
+        "Delivery and Results (b):",
+        "Overall Impact and Satisfaction (a):",
+        "Overall Impact and Satisfaction (b):",
+        "Additional Comments:"
+    ]
+
+    answers = []
+
+    print("Prompt Engineering Feedback Form\n")
+    for question in questions:
+        answer, sentiment = ask_question(question)
+        answers.append([answer, sentiment])
+
+    return answers
+
+def speech_therapy_feedback():
+    questions = [
+        "Speech-Language Pathologist Performance:",
+        "Knowledge and Expertise (a):",
+        "Knowledge and Expertise (b):",
+        "Collaboration and Communication (a):",
+        "Collaboration and Communication (b):",
+        "Materials and Resources (a):",
+        "Materials and Resources (b):",
+        "Overall Impact and Satisfaction (a):",
+        "Overall Impact and Satisfaction (b):",
+        "Additional Comments:"
+    ]
+
+    answers = []
+
+    print("Speech-Language Therapy Feedback Form\n")
+    for question in questions:
+        answer, sentiment = ask_question(question)
+        answers.append([answer, sentiment])
+
+    return answers
+
+def save_feedback_data(data, feedback_type):
+    # Open the file in append mode and write the feedback
+    with open(f'{feedback_type}_feedback_data.csv', 'a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerows(data)
+
+    print("Thank you for providing feedback!")
+
+# Main script
+feedback_type = input("Which feedback form do you want to fill? (PE or SLP) ")
+if feedback_type.lower() == "pe":
+    feedback_data = prompt_engineering_feedback()
+elif feedback_type.lower() == "slp":
+    feedback_data = speech_therapy_feedback()
+else:
+    print("Invalid feedback type. Please choose 'PE' or 'SLP'.")
+    exit(1)  # Terminate the program
+
+save_feedback_data(feedback_data, feedback_type)
+
+# Load feedback data from CSV
+df = pd.read_csv(f'{feedback_type}_feedback_data.csv')
+
+# Perform data analysis
+# Example 1: Calculate average ratings
+average_ratings = df['Sentiment'].mean()
+
+# Example 2: Count number of responses
+total_responses = len(df)
+
+# Generate report
+report = f"Feedback Data Analysis\n\n"
+report += f"Total Responses: {total_responses}\n\n"
+report += f"Average Sentiment Score:\n{average_ratings}\n\n"
+
+# Save report to a text file
+with open(f'{feedback_type}_feedback_report.txt', 'w') as file:
+    file.write(report)
+
+print("Data analysis complete. Feedback report generated.")
