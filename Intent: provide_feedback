@@ -1,0 +1,58 @@
+# Intent: provide_feedback
+nlu:
+- intent: provide_feedback
+  examples: |
+    - I want to give feedback
+    - I'd like to provide my feedback
+    - I have some feedback
+    - Here is my feedback
+- intent: rate_helpfulness
+  examples: |
+    - I rate it 5
+    - It's a 4 for me
+    - 3 out of 5
+    - 2 points for me
+    - I'd give it a 1
+- intent: explain_clarity
+  examples: |
+    - Some topics need more explanation
+    - Everything is clear
+    - It was quite clear
+    - It wasn't clear to me
+- intent: instructor_feedback
+  examples: |
+    - The instructor was excellent
+    - The instructor could use some improvement
+    - I didn't like the instructor's teaching style
+    - The instructor was very helpful
+- intent: material_feedback
+  examples: |
+    - The materials were very useful
+    - The materials could be improved
+    - The materials were outdated
+    - I loved the materials provided
+forms:
+  feedback_form:
+    helpfulness:
+      - type: from_entity
+        entity: number
+    clarity:
+      - type: from_text
+    instructor_strengths:
+      - type: from_text
+    instructor_weaknesses:
+      - type: from_text
+    material_quality:
+      - type: from_text
+responses:
+  utter_ask_feedback:
+    - text: "Please rate the helpfulness of the guide on a scale of 1 to 5."
+  utter_ask_clarity:
+    - text: "Please provide any areas in the guide you feel need more explanation or clarity."
+  utter_ask_instructor_strengths:
+    - text: "Please share what you found to be the instructor's strengths."
+  utter_ask_instructor_weaknesses:
+    - text: "Please share any areas where the instructor could improve."
+  utter_ask_material_quality:
+    - text: "Please share your thoughts on the quality of the materials provided."
+
