@@ -1,0 +1,62 @@
+# feedback_form:tutorials
+tutorials = {
+    1: {
+        "title": "Understanding AI and Introduction to Action Framework",
+        "content": "- Understanding AI\n- Basic interaction with AI: Direct questioning\n- Introduction to the Action Framework: An Overview\n- How the Action Framework elevates basic interaction",
+        "feedback_form": {
+            "questions": [
+                "How well did the tutorial help you understand AI?",
+                "Did the tutorial effectively explain the basic interaction with AI?",
+                "Did the tutorial provide a clear overview of the Action Framework?",
+                "Did the tutorial highlight the benefits of using the Action Framework?",
+                "Any additional comments or suggestions?"
+            ],
+            "contact_info": True
+        }
+    },
+    2: {
+        "title": "Data-Informed Planning – The First Step to Guiding AI's Understanding",
+        "content": "- The importance of using data in AI interaction\n- Setting clear objectives and defining the context for the AI\n- Exercise: Crafting data-informed plans for different scenarios",
+        "feedback_form": {
+            "questions": [
+                "Did the tutorial emphasize the importance of using data in AI interaction?",
+                "Did the tutorial provide clear guidance on setting objectives for the AI?",
+                "Did the tutorial effectively explain how to define the context for the AI?",
+                "How useful was the exercise on crafting data-informed plans?",
+                "Any additional comments or suggestions?"
+            ],
+            "contact_info": True
+        }
+    },
+     3: {
+        "title": "Prioritization and Prompting – Setting AI's Course",
+        "content": "- Guiding AI's approach with clear priorities\n- Outlining the tone, style, and specific elements\n- Exercise: Setting priorities for AI outputs",
+        "feedback_form": {
+            "questions": [
+                "Did the tutorial provide a clear understanding of guiding AI with priorities?",
+                "Was the explanation of outlining tone, style, and specific elements helpful?",
+                "How valuable was the exercise on setting priorities for AI outputs?",
+                "Any additional comments or suggestions?"
+            ],
+            "contact_info": True
+        }
+    }
+}
+
+def print_tutorial(tutorial_number):
+    tutorial = tutorials[tutorial_number]
+    print(tutorial["title"])
+    print("-" * len(tutorial["title"]))
+    print(tutorial["content"])
+    print(f"\nFor feedback, please complete the feedback form: {tutorial['feedback_form']['link']}\n")
+
+# Print the content of a specific tutorial
+print_tutorial(1)
+
+# Write the content of tutorials to a text file
+with open('tutorials_content.txt', 'w') as file:
+    for num, tutorial in tutorials.items():
+        file.write(tutorial["title"] + "\n")
+        file.write("-" * len(tutorial["title"]) + "\n")
+        file.write(tutorial["content"] + "\n")
+        file.write(f"For feedback, please complete the feedback form: {tutorial['feedback_form']['link']}\n\n")
