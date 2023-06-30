@@ -14,3 +14,15 @@ The provided updated version of the script incorporates the insights to improve 
 
 
 # Optimized version of the script that enhances functionality and ease of use for the feedback form
+In this optimized version, the feedback form questions are stored as dictionaries, which include the question text and the corresponding field name for the answer. This allows for easier management and flexibility when adding or modifying questions in the form.
+
+The answers are stored in a dictionary (answers) instead of a list to improve readability and make it easier to associate the answers with their respective fields. The sentiment analysis results are also stored with the corresponding feedback fields.
+
+The save_feedback_data function now uses csv.DictWriter to write the feedback data to a CSV file, allowing for better organization and readability of the data.
+
+Overall, these optimizations enhance the functionality and ease of use of the script by providing a more structured approach to the feedback form and improving the organization of the feedback data.
+
+
+
+
+
