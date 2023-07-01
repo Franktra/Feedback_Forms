@@ -1,0 +1,40 @@
+# feedback_materials_collection more interactive, updated, optimized from original code for feedback_form_ tutorials
+
+import csv
+from transformers import pipeline
+from getpass import getpass
+
+sentiment_analyzer = pipeline("sentiment-analysis")
+
+def get_sentiment(text):
+    result = sentiment_analyzer(text)
+    return result[0]['label']
+
+def prompt_feedback_form(tutorial_number):
+    tutorial = tutorials[tutorial_number]
+    feedback_form = tutorial['feedback_form']
+    answers = {}
+
+    print(f"\nFeedback Form for {tutorial['title']}\n")
+    for question in feedback_form['questions']:
+        answer = input(question + " ")
+        sentiment = get_sentiment(answer)
+        answers[question] = answer
+        answers[question + "_sentiment"] = sentiment
+
+    if feedback_form['contact_info']:
+        contact = input("If you'd like us to follow up on your feedback, please enter your email address: ")
+        answers['contact_info'] = contact
+
+    return answers
+
+def save_feedback_data(data):
+    with open('feedback_data.csv', 'a', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=data.keys())
+        writer.writerow(data)
+
+# Main script
+tutorial_number = int(input("Which tutorial did you complete? Enter the tutorial number: "))
+feedback_data = prompt_feedback_form(tutorial_number)
+save_feedback_data(feedback_data)
+print("Thank you for providing feedback!")
