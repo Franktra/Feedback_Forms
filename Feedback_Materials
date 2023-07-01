@@ -38,3 +38,52 @@ tutorial_number = int(input("Which tutorial did you complete? Enter the tutorial
 feedback_data = prompt_feedback_form(tutorial_number)
 save_feedback_data(feedback_data)
 print("Thank you for providing feedback!")
+
+from transformers import pipeline
+from getpass import getpass
+
+sentiment_analyzer = pipeline("sentiment-analysis")
+
+def get_sentiment(text):
+    result = sentiment_analyzer(text)
+    return result[0]['label']
+
+def validate_rating(rating):
+    try:
+        rating = int(rating)
+        if rating < 1 or rating > 5:
+            print("Invalid input. Please enter a number between 1 and 5.")
+            return False
+        return True
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+        return False
+
+def prompt_feedback_form(feedback_type):
+    questions = [
+        # similar question structure as your original code, 
+        # including Action Framework elements as additional questions
+    ]
+
+    answers = {}
+
+    print(f"\n{feedback_type} Feedback Form\n")
+    for question in questions:
+        answer = getpass(f"{question['question']} ")
+        if question['field'].endswith("_rating"):
+            while not validate_rating(answer):
+                answer = getpass(f"{question['question']} ")
+        if "Please provide" in question['question']:
+            sentiment = get_sentiment(answer)
+            answers[question['field']] = answer
+            answers[question['field'] + "_sentiment"] = sentiment
+        else:
+            answers[question['field']] = answer
+
+    return answers
+
+def save_feedback_data(data):
+    # similar to your original code
+
+# Main script
+# similar to your original code, but with additional error handling
