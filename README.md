@@ -2,6 +2,7 @@
 Feedback Forms
 ### In this script, we're using the getpass function from the getpass module to hide the user's input when they're typing their feedback. This is to avoid any potential issues with displaying potentially sensitive feedback on the screen. 
 If this isn't a concern for you, you can replace getpass with the standard input function.
+The feedback script is well-structured and functional, but enhancements are needed: User Input Validation: Currently, there is no validation for the user input. Error Handling: The script lacks robust error handling, we can add some checks to handle common exceptions that could possibly occur during the execution of the script.Sentiment Analysis Optimization: The sentiment analysis is currently being performed only on the feedback text. 
 
 After each descriptive feedback answer, we're running sentiment analysis using Hugging Face's sentiment analysis pipeline, and then saving the sentiment alongside the feedback in the answers list. Then, when we write the feedback data to the CSV file, each row will consist of the rating, the descriptive feedback, and the sentiment of the feedback.
  ### UPDATES
@@ -30,6 +31,19 @@ This code defines a function generate_feedback_form that takes the user's name, 
 To use this code in an email, replace 'your_smtp_server', 'your_username', 'your_password', and 'your_email@example.com' with the actual SMTP server details and email address. After making the necessary changes, include the generated email code in the email template and send it to the user.
 
 Please note that you need to have a working SMTP server and valid credentials to send emails using this code.
+
+# Feedback_form_tutorials CHANGED TO Feedback_Form_Materials, a revised version of the script incorporating these improvements: 
+Please note: **to reflect changes in the feedback form.** Update questions and fieldnames in the function save_feedback_data(data) 
+The feedback script is well-structured and functional, strengthened with enhancements/improvements:
+
+Integrating Action Framework: The Action Framework is helpful in gathering more targeted feedback by prompting users to consider specific elements while they're giving feedback. This could help in driving more meaningful improvements in the chatbot's performance.
+
+User Input Validation: Checks added to ensure that the rating provided by the user is within the acceptable range (1-5).
+
+Error Handling: The script's robust error handling added; now handles common exceptions that could possibly occur during the execution of the script.
+
+Sentiment Analysis Optimization: The sentiment analysis extended to all fields for more comprehensive insights.
+
 
 # Please note: This script assumes that tutorials dictionary is in the same Python file. Also, you'll need to ensure that the first time you run save_feedback_data, it includes a header row. You could check if the file is empty, and if it is, write data.keys() as the first row.
 
