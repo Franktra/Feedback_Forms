@@ -44,6 +44,8 @@ Error Handling: The script's robust error handling added; now handles common exc
 
 Sentiment Analysis Optimization: The sentiment analysis extended to all fields for more comprehensive insights.
 
+# tutorial dictionary
+## ** Please note**: This script assumes that tutorials dictionary is in the same Python file. Also, you'll need to ensure that the first time you run save_feedback_data, it includes a header row. You could check if the file is empty, and if it is, write data.keys() as the first row.
+The tutorial dictionary contains valuable resources but needed: add sentiment analysis, link for the feedback form, and contact_info field in use, provide an interactive experience for the users.
 
-# Please note: This script assumes that tutorials dictionary is in the same Python file. Also, you'll need to ensure that the first time you run save_feedback_data, it includes a header row. You could check if the file is empty, and if it is, write data.keys() as the first row.
 
