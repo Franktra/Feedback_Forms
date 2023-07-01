@@ -22,7 +22,12 @@ The save_feedback_data function now uses csv.DictWriter to write the feedback da
 
 Overall, these optimizations enhance the functionality and ease of use of the script by providing a more structured approach to the feedback form and improving the organization of the feedback data.
 
-   # generate_feedback_email_form; Generate the email body; Generate sending the email  
-  For sending feedback requests via email.
+# generate_feedback_email_form; Generate the email body; Generate sending the email  
+ For sending feedback requests via email.
 
+This code defines a function generate_feedback_form that takes the user's name, email, and feedback as input. It generates the email body, saves it to a file named {name}_feedback.txt, and generates the code for sending the email. The email code uses the smtplib library to send the email using an SMTP server.
+
+To use this code in an email, replace 'your_smtp_server', 'your_username', 'your_password', and 'your_email@example.com' with the actual SMTP server details and email address. After making the necessary changes, include the generated email code in the email template and send it to the user.
+
+Please note that you need to have a working SMTP server and valid credentials to send emails using this code.
 
