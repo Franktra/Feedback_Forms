@@ -22,7 +22,7 @@ The save_feedback_data function now uses csv.DictWriter to write the feedback da
 
 Overall, these optimizations enhance the functionality and ease of use of the script by providing a more structured approach to the feedback form and improving the organization of the feedback data.
 
-
-
+   # generate_feedback_email_form; Generate the email body; Generate sending the email  
+  For sending feedback requests via email.
 
 
