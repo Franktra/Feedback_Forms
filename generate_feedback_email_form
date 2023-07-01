@@ -1,0 +1,62 @@
+    # generate_feedback_email_form
+
+def generate_feedback_form(name, email, feedback):
+    # Generate the email body
+    email_body = f"Name: {name}\nEmail: {email}\n\nFeedback:\n{feedback}"
+    
+    # Save the email body to a file
+    file_name = f"{name.replace(' ', '_').lower()}_feedback.txt"
+    with open(file_name, "w") as file:
+        file.write(email_body)
+    
+    # Generate the code for sending the email
+    email_code = f"""
+import smtplib
+from email.mime.text import MIMEText
+
+def send_email(sender_email, receiver_email, subject, message):
+    msg = MIMEText(message)
+    msg['Subject'] = subject
+    msg['From'] = sender_email
+    msg['To'] = receiver_email
+
+    # Replace 'your_smtp_server', 'your_username', and 'your_password' with actual SMTP server details
+    smtp_server = 'your_smtp_server'
+    smtp_port = 587
+    smtp_username = 'your_username'
+    smtp_password = 'your_password'
+
+    try:
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.starttls()
+            server.login(smtp_username, smtp_password)
+            server.send_message(msg)
+        print("Email sent successfully!")
+    except Exception as e:
+        print("An error occurred while sending the email.")
+        print(e)
+
+sender_email = 'your_email@example.com'  # Replace with your email address
+receiver_email = '{email}'  # Replace with the receiver's email address
+subject = 'Feedback Form Submission'
+message = '''
+Hello,
+
+Thank you for submitting your feedback. We appreciate your input!
+
+Best regards,
+Your Company
+'''
+
+send_email(sender_email, receiver_email, subject, message)
+"""
+
+    return email_code
+
+# Example usage
+name = "John Doe"
+email = "john.doe@example.com"
+feedback = "This is my feedback."
+
+feedback_form_code = generate_feedback_form(name, email, feedback)
+print(feedback_form_code)
