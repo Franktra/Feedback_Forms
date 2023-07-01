@@ -31,3 +31,5 @@ To use this code in an email, replace 'your_smtp_server', 'your_username', 'your
 
 Please note that you need to have a working SMTP server and valid credentials to send emails using this code.
 
+# Please note: This script assumes that tutorials dictionary is in the same Python file. Also, you'll need to ensure that the first time you run save_feedback_data, it includes a header row. You could check if the file is empty, and if it is, write data.keys() as the first row.
+
